@@ -8,7 +8,10 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "/Users/human/Miscellaneous/Code/advent-2017/day-03/spiral-memory.js"
+            "program": "/Users/human/Miscellaneous/Code/advent-2017/day-01/inverse-captcha-01",
+            "program": "/Users/human/Miscellaneous/Code/advent-2017/day-01/inverse-captcha-02",
+            "program": "/Users/human/Miscellaneous/Code/advent-2017/day-02/corruption-checksum-01",
+
 
         }
     ]
