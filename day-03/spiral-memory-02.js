@@ -1,12 +1,12 @@
 
 function findValueInSpiral(target){
     
-    function addTopRow(){
+    function addNewTopRow(){
         topRow++;
         grid[topRow] = [];
     }
     
-    function addBottomRow(){
+    function addNewBottomRow(){
         bottomRow--;
         grid[bottomRow] = [];
     }
@@ -32,10 +32,10 @@ function findValueInSpiral(target){
     while (n < 325489){
 
         // add two new top rows and two new bottom rows
-        addTopRow();
-        addTopRow();
-        addBottomRow();
-        addBottomRow();
+        addNewTopRow();
+        addNewTopRow();
+        addNewBottomRow();
+        addNewBottomRow();
 
         // increase stepcount
         stepCount++;
