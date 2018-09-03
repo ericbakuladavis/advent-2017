@@ -1,11 +1,12 @@
 var fs = require('fs');
-var input = fs.readFileSync("input.txt", 'utf8').split('\n');
+var input = fs.readFileSync("/home/eric/Code/advent-2017/day-04/input.txt", 'utf8').split('\n').map((phrase) => phrase.split(' '));
 
 let length = input.length;
 let count = 0;
-input.forEach((line) => {
-    let splitLine = line.split(' ');
-    if (splitLine.every((word) => splitLine.indexOf(word) === splitLine.lastIndexOf(word)))
+
+input.forEach((phrase) => {
+    if (phrase.every((word) => phrase.indexOf(word) === phrase.lastIndexOf(word)))
         count++;
 });
+
 console.log(count);
