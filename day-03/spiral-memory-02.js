@@ -27,7 +27,6 @@ function findValueInSpiral(target){
     let n = 1;
     let stepCount = 0
 
-
     // make the spiral in the grid
     while (n < 325489){
 
@@ -137,6 +136,7 @@ function findValueInSpiral(target){
             // haven't hit target yet
             // add n to the grid and keep going
             grid[y][x] = n;
+            
         }
 
     }
