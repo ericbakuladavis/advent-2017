@@ -31,7 +31,7 @@ function findValueInSpiral(target){
     let stepCount = 0
 
     // make the spiral in the grid
-    while (n < 325489){
+    while (n < target){
 
         // add two new top rows and two new bottom rows
         addNewTopRow();
