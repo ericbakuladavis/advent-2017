@@ -1,3 +1,6 @@
+// This function could be simplified if I made a function to check all 8 neighbors of a given square.
+// As it is, we only check 3 neighbors of each square, but each set of 3 is different depending on the direction of travel.
+// It requires more code but I guess it performs faster.
 
 function findValueInSpiral(target){
     
@@ -136,7 +139,7 @@ function findValueInSpiral(target){
             // haven't hit target yet
             // add n to the grid and keep going
             grid[y][x] = n;
-            
+
         }
 
     }
