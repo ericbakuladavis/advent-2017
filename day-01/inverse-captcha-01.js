@@ -1,5 +1,5 @@
 var fs = require('fs');
-var input = fs.readFileSync("/Users/human/Miscellaneous/Code/advent-2017/day-01/input.txt", 'utf8');
+var input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8');
 
 input += input[0];
 

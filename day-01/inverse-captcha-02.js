@@ -6,7 +6,7 @@ function addEm(start, end, offset){
 }
 
 const fs = require('fs');
-const input = fs.readFileSync("/Users/human/Miscellaneous/Code/advent-2017/day-01/input.txt", 'utf8');
+const input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8');
 
 let sum = 0;
 const length = input.length
