@@ -30,7 +30,7 @@ function findValueInSpiral(target){
     let n = 1;
     let stepCount = 0
 
-    // make the serpiral in the grid
+    // make the spiral in the grid
     while (n < target){
 
         // add two new top rows and two new bottom rows
