@@ -1,4 +1,4 @@
-// each n in steps represents the number of steps required for a number in the spiral
+// each n in steps represents the number of steps required for a number in the spiral to reach the center
 // steps[0] contains the number of steps required by 1 (which is 0)
 // steps[1] contains the number of steps required by 2 (which is 1)
 // steps[2] contains the number of steps required by 3 (which is 2)
@@ -36,3 +36,5 @@ function getSteps (target){
     }
   }
 }
+
+console.log(getSteps(325489));

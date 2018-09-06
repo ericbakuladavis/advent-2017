@@ -28,7 +28,7 @@ function findValueInSpiral(target){
     let bottomRow = 0;
     let topRow = 0;
     let n = 1;
-    let stepCount = 0
+    let stepsToTake = 0
 
     // make the spiral in the grid
     while (n < target){
@@ -39,11 +39,11 @@ function findValueInSpiral(target){
         addNewBottomRow();
         addNewBottomRow();
 
-        // increase stepcount
-        stepCount++;
+        // increase stepsToTake
+        stepsToTake++;
 
         // walk right
-        for (let i = 0; i < stepCount; i++){
+        for (let i = 0; i < stepsToTake; i++){
             
             // step right
             x++;
@@ -67,7 +67,7 @@ function findValueInSpiral(target){
         }
 
         // walk up
-        for (let i = 0; i < stepCount; i++){
+        for (let i = 0; i < stepsToTake; i++){
             
             // step up
             y++;
@@ -90,11 +90,11 @@ function findValueInSpiral(target){
             grid[y][x] = n;
         }
 
-        // increase stepcount
-        stepCount++;
+        // increase stepsToTake
+        stepsToTake++;
 
         // walk left
-        for (let i = 0; i < stepCount; i++){
+        for (let i = 0; i < stepsToTake; i++){
             
             // step left
             x--;
@@ -118,7 +118,7 @@ function findValueInSpiral(target){
         }
 
         // walk down
-        for (let i = 0; i < stepCount; i++){
+        for (let i = 0; i < stepsToTake; i++){
             
             // step down
             y--;
