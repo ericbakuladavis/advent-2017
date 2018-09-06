@@ -1,18 +1,15 @@
-function addEm(start, end, offset){
-    for (let i = start; i < end; i++){
-        if (input[i] === input[i + offset])
-            sum += parseInt(input[i]);
-    }
-}
-
 const fs = require('fs');
-const input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8');
+let input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8').split('').map((str) => parseInt(str));
 
 let sum = 0;
-const length = input.length
-const halfLength = length / 2;
 
-addEm(0, halfLength, halfLength);
-addEm(halfLength, length, halfLength * -1);
+for (let i = 0; i < input.length; i++){
+    let curNum = input[i];
+    let nextNumIndex = ( i + input.length / 2 ) % input.length;
+    let nextNum = input[nextNumIndex];
+
+    if (curNum === nextNum)
+        sum += curNum;
+}
 
 console.log(sum);
