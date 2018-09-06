@@ -1,5 +1,5 @@
-var fs = require('fs');
-var input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8').split('\n').map((phrase) => phrase.split(' '));
+const fs = require('fs');
+const input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8').split('\n').map((phrase) => phrase.split(' '));
 
 function areAnagrams(word, otherWord){
     return word.split('').sort().toString() === otherWord.split('').sort().toString();

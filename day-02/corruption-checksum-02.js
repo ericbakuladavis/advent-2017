@@ -1,5 +1,5 @@
-var fs = require('fs');
-var input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8').split('\n').map((line) => line.split('\t'));
+const fs = require('fs');
+const input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8').split('\n').map((line) => line.split('\t'));
 
 let sum = 0;
 
