@@ -9,8 +9,11 @@ function configsMatch(config1, config2){
 function configSeen(curConfig){
     for (i = 0; i < configs.length; i++){
         let storedConfig = configs[i];
-        if (configsMatch(curConfig, storedConfig))
+        if (configsMatch(curConfig, storedConfig)){
+            distance = configs.length - i;
             return true;
+        }
+            
     }
     return false;
 }
@@ -19,9 +22,9 @@ const fs = require('fs');
 const input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8').split('\t').map((str) => parseInt(str));
 const inputLength = input.length;
 
-let count = 0;
 let configs = [];
 let curConfig = input.slice();
+let distance = 0;
 
 while (configSeen(curConfig) === false){
 
@@ -58,7 +61,6 @@ while (configSeen(curConfig) === false){
 
     }
 
-    count++;
 }
 
-console.log(count);
+console.log(distance);
