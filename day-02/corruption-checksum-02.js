@@ -1,15 +1,20 @@
 const fs = require('fs');
-const input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8').split('\n').map((line) => line.split('\t'));
+const input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8').split('\n').map((line) => line.split('\t').map((str) => parseInt(str)));
 
 let sum = 0;
 
 input.forEach((line) => {
-    line.forEach((number, index) => {
-        line.forEach((otherNumber, otherIndex) =>{
-            if (otherNumber % number === 0 && otherIndex !== index )
-                sum += otherNumber / number;
-        });
-    });
+    for (let i = 0; i < line.length - 1; i++){
+        let curNum = line[i];
+        for (let j = i + 1; j < line.length; j++){
+            let otherNum = line[j];    
+            let sortedNums = [curNum, otherNum].sort((a,b) => b - a);
+            if (sortedNums[0] % sortedNums[1] === 0){
+                sum += sortedNums[0] / sortedNums[1];
+                break;
+            }
+        }
+    }
 });
 
 console.log(sum);
