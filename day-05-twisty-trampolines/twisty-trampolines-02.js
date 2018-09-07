@@ -1,5 +1,5 @@
 const fs = require('fs');
-let input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8').split('\n').map(parseInt);
+let input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8').split('\n').map((str) => parseInt(str));
 
 let index = 0;
 let count = 0;

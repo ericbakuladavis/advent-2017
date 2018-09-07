@@ -19,7 +19,7 @@ function configSeen(curConfig){
 }
 
 const fs = require('fs');
-const input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8').split('\t').map(parseInt);
+const input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8').split('\t').map((str) => parseInt(str));
 const inputLength = input.length;
 
 let configs = [];
