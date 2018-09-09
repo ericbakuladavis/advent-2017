@@ -57,12 +57,13 @@ function getTotalWeight(program){
     return weightOfSupportedPrograms + programWeight;
  }
 
-function getHighestUnbalanced(base, previousCommonTotalWeight){
+function getHighestUnbalanced(base, previousBalancedTotalWeight){
+    // get the total weight of each of the first three supported programs
     for (let i = 0; i < 3; i++){
         program = data[base].supportedPrograms[i];
         data[program].totalWeight = getTotalWeight(program);
     }
-    //if the first weight matches the second weight, that's our balanced weight
+    // if the first weight is equa to the second weight, we've found our balanaced weight
     //otherwise, one of the first two weights is the unbalanced program. so, the third weight is our balanced weight.
     let balancedTotalWeight;
     if (data[data[base].supportedPrograms[0]].totalWeight === data[data[base].supportedPrograms[1]].totalWeight)
@@ -81,9 +82,9 @@ function getHighestUnbalanced(base, previousCommonTotalWeight){
             break;
         }
     }
-    // if there's no unbalanced program above then base must be the highest unbalanced program. so, return it 
+    // if there are no unbalanced programs, the current base must be the highest unbalanced program. so, return it 
     if (unbalancedProgram === undefined){
-        data[base].balancedTotalWeight = previousCommonTotalWeight;
+        data[base].balancedTotalWeight = previousBalancedTotalWeight;
         return base;
     // otherwise return the highest unbalanced program above the base
     } else {
