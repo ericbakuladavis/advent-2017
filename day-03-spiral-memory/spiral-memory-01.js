@@ -1,38 +1,59 @@
-// each n in steps represents the number of steps required for a number in the spiral to reach the center
-// steps[0] contains the number of steps required by 1 (which is 0)
-// steps[1] contains the number of steps required by 2 (which is 1)
-// steps[2] contains the number of steps required by 3 (which is 2)
-// steps[3] contains the number of steps required by 4 (which is 1)
-// n will osciate between a high number and a low number
-// both the high and the low will grow, but the high will grow faster
+// here's the spiral from the prompt:
+// 17  16  15  14  13
+// 18   5   4   3  12
+// 19   6   1   2  11
+// 20   7   8   9  10
+// 21  22  23---> ...
 
-function getSteps (target){ 
-  let steps = [],
-      low = 1,
-      high = 2,
-      counter = 0,
-      n = 0;
-  while  (n <= target){
-    while (n < high){
-      steps.push(n);
-      if (steps.length === target)
-        return n;
-      n++;
+
+// here's the spiral where each number is how many steps are needed to reach the center:
+// 4   3   2   3   4 
+// 3   2   1   2   3 
+// 2   1   0   1   2 
+// 3   2   1   2   3 
+// 4   3   2---> ...
+
+// if we un-coil that, it looks like this:
+
+// 0, 1, 2, 1, 2, 1, 2, 1, 2, 3, 2, 3, 4, 3, 2, 3, 4, 3, 2, 3, 4, 3, 2, 3, 4, 5, 4, 3, 4, 5, 6..
+
+// that series follows a pattern.
+// here's a visual/auditory representation of the pattern: https://goo.gl/isxjFZ
+
+// the series oscilates between a ceiling and a floor.
+// both the ceiling and the floor grow, but the ceiling grows faster.
+
+// this function produces that pattern and returns stepsToReachCenter as soon as curNum equals targetNum.
+// curNum represents a number from the spiral in the prompt.
+// stepsToReachCenter represents how many steps it takes to reach the center, starting at curNum.
+
+function getSteps (targetNum){ 
+  let curNum = 1,
+      floor = 1,
+      ceiling = 2,
+      hitFloorCount = 0,
+      stepsToReachCenter = 0;
+  while  (stepsToReachCenter <= targetNum){
+    while (stepsToReachCenter < ceiling){
+      if (curNum === targetNum)
+        return stepsToReachCenter;
+      curNum++;
+      stepsToReachCenter++;
     }
-    while (n > low){
-      steps.push(n);
-      if (steps.length === target)
-        return n;
-      n--;
+    while (stepsToReachCenter > floor){
+      if (curNum === targetNum)
+        return stepsToReachCenter;
+      curNum++;
+      stepsToReachCenter--;
     }
-    counter++;
-    if (counter === 3){
-      high++;
-      low++;
+    hitFloorCount++;
+    if (hitFloorCount === 3){
+      ceiling++;
+      floor++;
     }
-    if (counter === 4){
-      high++;
-      counter = 0;
+    if (hitFloorCount === 4){
+      ceiling++;
+      hitFloorCount = 0;
     }
   }
 }
