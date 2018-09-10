@@ -9,8 +9,10 @@ input.forEach((line) => {
         for (let j = i + 1; j < line.length; j++){
             let otherNum = line[j];    
             let sortedNums = [curNum, otherNum].sort((a,b) => b - a);
-            if (sortedNums[0] % sortedNums[1] === 0){
-                sum += sortedNums[0] / sortedNums[1];
+            let biggerNum = sortedNums[0];
+            let smallerNum = sortedNums[1];
+            if (biggerNum % smallerNum === 0){
+                sum += biggerNum / smallerNum;
                 break;
             }
         }
