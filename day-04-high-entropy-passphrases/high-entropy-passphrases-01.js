@@ -1,11 +1,25 @@
 const fs = require('fs');
 const input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8').split('\n').map((phrase) => phrase.split(' '));
 
-let count = 0;
+function countValidPhrases(input){
+    let count = 0;
+    input.forEach((phrase) => {
+        if (phraseIsValid(phrase))
+            count++;
+    });
+    return count;
+}
 
-input.forEach((phrase) => {
-    if (phrase.every((word) => phrase.indexOf(word) === phrase.lastIndexOf(word)))
-        count++;
-});
+function phraseIsValid(phrase){
+    let seen = new Set();
+    for (let i = 0; i < phrase.length; i++){
+        let word = phrase[i];
+        if (seen.has(word))
+            return false;
+        else
+            seen.add(word);    
+    }
+    return true;
+}
 
-console.log(count);
+console.log(countValidPhrases(input));
