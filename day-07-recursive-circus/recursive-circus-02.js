@@ -1,104 +1,135 @@
-function convertInputToObjectAndAssesBottomCandidates(input){
-    let data = {};
-    input.forEach((line) => {
-        let openParensIndex;
-        let closeParensIndex;
-        let listIndex;
-        for (let i = 0; !listIndex && i < line.length ; i++){
-            let char = line[i];
-            switch (char) {
-                case '(':   openParensIndex = i;
-                            break;
-                case ')':   closeParensIndex = i;
-                            break;
-                case '-':   listIndex = i + 3;
-                            break;
-            }
-        }
-        let program = line.slice(0, openParensIndex - 1);
-        if(!data.hasOwnProperty(program))
-            data[program] = {};
-        let weight = parseInt(line.slice(openParensIndex + 1, closeParensIndex));
-        data[program].weight = weight;
-        if (listIndex){
-            let supportedPrograms = line.slice(listIndex).split(', ');
-            data[program].supportedPrograms = supportedPrograms;
-            assessBottomCandidates(program, data);
-        }
-    });
-    return data;
-}
-
-function assessBottomCandidates(program, data){
-    if (data[program].isBottom !== 'no')
-        data[program].isBottom = 'maybe';
-    for (supportedProgram of data[program].supportedPrograms){
-        if(!data.hasOwnProperty(supportedProgram))
-            data[supportedProgram] = {};
-        data[supportedProgram].isBottom = 'no';
-    }
-}
-
-function getBottom(data){
-    for (program in data){
-        if (data[program].isBottom === 'maybe')
-            return program;
-    }
-}
-
-function getTotalWeight(program){
-    let weightOfSupportedPrograms = 0;
-    let programWeight = data[program].weight; 
-    if (data[program].hasOwnProperty('supportedPrograms')){
-        for (supportedProgram of data[program].supportedPrograms){
-            weightOfSupportedPrograms += getTotalWeight(supportedProgram);
-        }
-    }
-    return weightOfSupportedPrograms + programWeight;
- }
-
-function getHighestUnbalanced(base, previousBalancedTotalWeight){
-    // get the total weight of each of the first three supported programs
-    for (let i = 0; i < 3; i++){
-        program = data[base].supportedPrograms[i];
-        data[program].totalWeight = getTotalWeight(program);
-    }
-    // if the first weight is equa to the second weight, we've found our balanaced weight
-    //otherwise, one of the first two weights is the unbalanced program. so, the third weight is our balanced weight.
-    let balancedTotalWeight;
-    if (data[data[base].supportedPrograms[0]].totalWeight === data[data[base].supportedPrograms[1]].totalWeight)
-        balancedTotalWeight = data[data[base].supportedPrograms[0]].totalWeight;
-    else
-        balancedTotalWeight = data[data[base].supportedPrograms[2]].totalWeight;
-    // loop over all supported programs, searching for an unbalanced program
-    let unbalancedProgram;
-    for (let i = 0; i < data[base].supportedPrograms.length; i++){
-        let program = data[base].supportedPrograms[i];
-        if (i > 2)
-            data[program].totalWeight = getTotalWeight(program);
-        // if we find one, record it and stop searching
-        if (data[program].totalWeight !== balancedTotalWeight){
-            unbalancedProgram = program;
+function findBalancedChildTotalWeight(tree, node){
+    let seen = new Set();
+    let balancedChildTotalWeight;
+    for (child of node.children){
+        let childTotalWeight = tree[child].totalWeight;
+        if (seen.has(childTotalWeight)){
+            balancedChildTotalWeight = childTotalWeight;
             break;
+        } else {
+            seen.add(childTotalWeight);
         }
     }
-    // if there are no unbalanced programs, the current base must be the highest unbalanced program. so, return it 
-    if (unbalancedProgram === undefined){
-        data[base].balancedTotalWeight = previousBalancedTotalWeight;
-        return base;
-    // otherwise return the highest unbalanced program above the base
-    } else {
-        return getHighestUnbalanced(unbalancedProgram, balancedTotalWeight);
+    return balancedChildTotalWeight;    
+}
+
+function findUnbalancedChild(tree, node){
+    let balancedChildTotalWeight = findBalancedChildTotalWeight(tree, node);
+    for (child of node.children){
+        let childTotalWeight = tree[child].totalWeight;
+        if (childTotalWeight !== balancedChildTotalWeight)
+            return tree[child];
     }
+    return undefined;
+}
+
+function findHighestUnbalancedNode(tree, node){
+    let unbalancedChild = findUnbalancedChild(tree, node);
+    if (unbalancedChild === undefined)
+        return node;
+    return findHighestUnbalancedNode(tree, unbalancedChild);
+}
+
+function getTotalWeight(tree, node){
+    if (!node.children){
+        node.totalWeight = node.weight;
+        return node.totalWeight;
+    }
+    let weightOfChildren = 0;
+    node.children.forEach((child) => {
+        weightOfChildren += getTotalWeight(tree, tree[child]);
+    });
+    node.totalWeight = weightOfChildren + node.weight;
+    return node.totalWeight;
+}
+
+function addChildrenToTree(tree, name, children){
+    children.forEach((child) => {
+        if (!tree.hasOwnProperty(child))
+            tree[child] = {};
+        tree[child].parent = name;
+    });
+}
+
+function getIndices(line){
+    let openParensIndex;
+    let closeParensIndex;
+    let listIndex;
+    for (let i = 0; !listIndex && i < line.length ; i++){
+        let char = line[i];
+        switch (char) {
+            case '(':   openParensIndex = i;
+                        break;
+            case ')':   closeParensIndex = i;
+                        break;
+            case '-':   listIndex = i + 3;
+                        break;
+        }
+    }
+    let indices = {};
+    indices.openParens = openParensIndex;
+    indices.closeParens = closeParensIndex;
+    indices.list = listIndex;
+    return indices;
+}
+
+function makeNode(line){
+    let indices = getIndices(line);
+    let name = line.slice(0, indices.openParens - 1);
+    let weight = parseInt(line.slice(indices.openParens + 1, indices.closeParens));
+    // Is there a better way to create this set?
+    let children;
+    if (indices.list){
+        children = new Set(line.slice(indices.list).split(', '));
+    }
+    let node = {};
+    node.name = name;
+    node.weight = weight;
+    node.children = children;
+    return node;
+}
+
+function addNodeAndChildrenToTree(tree, line){
+    let node = makeNode(line);
+    if (!tree.hasOwnProperty(node.name))
+        tree[node.name] = {};
+    tree[node.name].weight = node.weight;
+    tree[node.name].children = node.children;
+    if (node.children)
+        addChildrenToTree(tree, node.name, node.children);
+}
+
+function findBottomName(tree){
+    for (nodeName in tree){
+        if (!tree[nodeName].hasOwnProperty('parent'))
+            return nodeName;
+    }
+}
+
+function makeTree(input){
+    let tree = {};
+    input.forEach((line) => {
+        addNodeAndChildrenToTree(tree, line);
+    });
+    return tree;
+}
+
+function getTargetWeightOfHighestUnbalancedNode(input){
+    let tree = makeTree(input);
+    let bottomName = findBottomName(tree);
+
+    //This gets the total weight of the tree, which we don't need.
+    //But it also sets a totalWeight for each node, which we want.
+    getTotalWeight(tree, tree[bottomName]);
+    
+    let highestUnbalancedNode = findHighestUnbalancedNode(tree, tree[bottomName]);
+    let highestUnbalancedNodeParent = tree[highestUnbalancedNode.parent];
+    let highestUnbalancedNodeSiblingTotalWeight = findBalancedChildTotalWeight(tree, highestUnbalancedNodeParent);
+    let difference = highestUnbalancedNode.totalWeight - highestUnbalancedNodeSiblingTotalWeight;
+    return highestUnbalancedNode.weight - difference;
 }
 
 const fs = require('fs');
 const input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8').split('\n');
 
-let data = convertInputToObjectAndAssesBottomCandidates(input);
-let bottom = getBottom(data);
-let highestUnbalanced = getHighestUnbalanced(bottom);
-let diff = data[highestUnbalanced].balancedTotalWeight - data[highestUnbalanced].totalWeight;
-let solution = data[highestUnbalanced].weight + diff;
-
-console.log(solution);
+console.log(getTargetWeightOfHighestUnbalancedNode(input));
