@@ -50,8 +50,7 @@ function findBottomName(tree){
     }
 }
 
-function addChildrenToTree(tree, nodeName, indices, line){
-    let node = tree[nodeName];
+function addChildrenToTree(tree, node, indices, line){
     node.children = {};
     let childrenNames = line.slice(indices.dash).split(', ');
     childrenNames.forEach((childName) => {
@@ -86,7 +85,7 @@ function addNodeAndChildrenToTree(tree, line){
     let node = tree[nodeName];
     node.weight = parseInt(line.slice(indices.openParenthesis + 1, indices.closedParenthesis));
     if (indices.dash){
-        addChildrenToTree(tree, nodeName, indices, line); 
+        addChildrenToTree(tree, node, indices, line); 
     }
 }
 
