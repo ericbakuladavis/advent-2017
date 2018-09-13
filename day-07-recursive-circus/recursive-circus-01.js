@@ -1,57 +1,42 @@
-function addChildrenToTree(tree, name, children){
-    children.forEach((child) => {
-        if (!tree.hasOwnProperty(child))
-            tree[child] = {};
-        tree[child].parent = name;
+function addChildrenToTree(tree, nodeName, indices, line){
+    let node = tree[nodeName];
+    node.children = {};
+    let childrenNames = line.slice(indices.dash).split(', ');
+    childrenNames.forEach((childName) => {
+        if (!tree[childName])
+            tree[childName] = {};
+        node.children[childName] = tree[childName];
+        tree[childName].parent = node;
     });
 }
 
 function getIndices(line){
-    let openParensIndex;
-    let closeParensIndex;
-    let listIndex;
-    for (let i = 0; !listIndex && i < line.length ; i++){
+    let indices = {};
+    for (let i = 0; !indices.dash && i < line.length ; i++){
         let char = line[i];
         switch (char) {
-            case '(':   openParensIndex = i;
+            case '(':   indices.openParens = i;
                         break;
-            case ')':   closeParensIndex = i;
+            case ')':   indices.closeParens = i;
                         break;
-            case '-':   listIndex = i + 3;
+            case '-':   indices.dash = i + 3;
                         break;
         }
+
     }
-    let indices = {};
-    indices.openParens = openParensIndex;
-    indices.closeParens = closeParensIndex;
-    indices.list = listIndex;
     return indices;
 }
 
-function makeNode(line){
-    let indices = getIndices(line);
-    let name = line.slice(0, indices.openParens - 1);
-    let weight = parseInt(line.slice(indices.openParens + 1, indices.closeParens));
-    // Is there a better way to create this set?
-    let children;
-    if (indices.list){
-        children = new Set(line.slice(indices.list).split(', '));
-    }
-    let node = {};
-    node.name = name;
-    node.weight = weight;
-    node.children = children;
-    return node;
-}
-
 function addNodeAndChildrenToTree(tree, line){
-    let node = makeNode(line);
-    if (!tree.hasOwnProperty(node.name))
-        tree[node.name] = {};
-    tree[node.name].weight = node.weight;
-    tree[node.name].children = node.children;
-    if (node.children)
-        addChildrenToTree(tree, node.name, node.children);
+    let indices = getIndices(line);
+    let nodeName = line.slice(0, indices.openParens - 1);
+    if (!tree[nodeName])
+        tree[nodeName] = {};
+    let node = tree[nodeName];
+    node.weight = parseInt(line.slice(indices.openParens + 1, indices.closeParens));
+    if (indices.dash){
+        addChildrenToTree(tree, nodeName, indices, line); 
+    }
 }
 
 function makeTree(input){
@@ -65,7 +50,7 @@ function makeTree(input){
 function findBottomName(input){
     let tree = makeTree(input);
     for (nodeName in tree){
-        if (!tree[nodeName].hasOwnProperty('parent'))
+        if (!tree[nodeName].parent)
             return nodeName;
     }
 }
