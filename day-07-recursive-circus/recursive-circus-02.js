@@ -43,6 +43,13 @@ function getTotalWeight(tree, node){
     return node.totalWeight;
 }
 
+function findBottomName(tree){
+    for (nodeName in tree){
+        if (!tree[nodeName].hasOwnProperty('parent'))
+            return nodeName;
+    }
+}
+
 function addChildrenToTree(tree, name, children){
     children.forEach((child) => {
         if (!tree.hasOwnProperty(child))
@@ -97,13 +104,6 @@ function addNodeAndChildrenToTree(tree, line){
     tree[node.name].children = node.children;
     if (node.children)
         addChildrenToTree(tree, node.name, node.children);
-}
-
-function findBottomName(tree){
-    for (nodeName in tree){
-        if (!tree[nodeName].hasOwnProperty('parent'))
-            return nodeName;
-    }
 }
 
 function makeTree(input){
