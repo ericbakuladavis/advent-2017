@@ -1,64 +1,54 @@
-function configsMatch(config1, config2){
-    for (let i = 0; i < config1.length; i++){
-        if (config1[i] !== config2[i])
-            return false;
-    }
-    return true;
-}
-
-function configSeen(curConfig){
-    for (i = 0; i < configs.length; i++){
-        let storedConfig = configs[i];
-        if (configsMatch(curConfig, storedConfig))
-            return true;
-    }
-    return false;
-}
-
-const fs = require('fs');
-const input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8').split('\t').map((str) => parseInt(str));
-const inputLength = input.length;
-
-let count = 0;
-let configs = [];
-let curConfig = input.slice();
-
-while (configSeen(curConfig) === false){
-
-    configs.push(curConfig.slice());
-
-    let max = 0;
+function getMax(config){
+    let maxNum = 0;
     let maxIndex;
-
-    curConfig.forEach((num,index) => {
-        if (num > max){
-            max = num;
+    config.forEach((num, index) => {
+        if (num > maxNum){
+            maxNum = num;
             maxIndex = index;
         }
     });
+    return {'num': maxNum, 'index': maxIndex};
+}
 
-    let banksThatGetExtra = max % inputLength;
-    const blocksForAllBanks = Math.floor(max / inputLength);
-    let totalSteps = inputLength;
-    curConfig[maxIndex] = 0;
+function redistributeBlocks(config){
+    let configLength = config.length;
+    let max = getMax(config);
+    let maxNum = max.num;
+    let maxIndex = max.index;
+
+    let banksThatGetExtra = maxNum % configLength;
+    const blocksForAllBanks = Math.floor(maxNum / configLength);
+    let totalSteps = configLength;
+    config[maxIndex] = 0;
 
     if (blocksForAllBanks === 0)
         totalSteps = banksThatGetExtra;
 
     for (let i = 0; i < totalSteps; i++){
-        
-        let index = (maxIndex + i + 1) % inputLength;
-        
-        curConfig[index] += blocksForAllBanks;
-
+        let index = (maxIndex + i + 1) % configLength;
+        config[index] += blocksForAllBanks;
         if (banksThatGetExtra){
-            curConfig[index]++;
+            config[index]++;
             banksThatGetExtra--;
         }
-
     }
-
-    count++;
+    return config;
 }
 
-console.log(count);
+function countCyclesUntilDuplicateConfig(input){
+    let seen = new Set();
+    let config = input.slice();
+    let configString = JSON.stringify(config); 
+
+    while(!seen.has(configString)){
+        seen.add(configString);
+        config = redistributeBlocks(config);
+        configString = JSON.stringify(config);    
+    }
+    return seen.size;
+}
+
+const fs = require('fs');
+const input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8').split('\t').map((str) => parseInt(str));
+
+console.log(countCyclesUntilDuplicateConfig(input));
