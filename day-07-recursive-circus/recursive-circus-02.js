@@ -30,14 +30,14 @@ function findHighestUnbalancedNode(node){
     return findHighestUnbalancedNode(unbalancedChild);
 }
 
-function getTotalWeight(tree, node){
+function getTotalWeight(node){
     if (!node.children){
         node.totalWeight = node.weight;
         return node.totalWeight;
     }
     let totalWeightOfChildren = 0;
     for (childName in node.children){
-        totalWeightOfChildren += getTotalWeight(tree, tree[childName]);
+        totalWeightOfChildren += getTotalWeight(node.children[childName]);
     }
     node.totalWeight = totalWeightOfChildren + node.weight;
     return node.totalWeight;
@@ -104,7 +104,7 @@ function getTargetWeightOfHighestUnbalancedNode(input){
 
     //This gets the total weight of the tree, which we don't need.
     //But it also sets a totalWeight for each node, which we want.
-    getTotalWeight(tree, bottom);
+    getTotalWeight(bottom);
 
     let highestUnbalancedNode = findHighestUnbalancedNode(bottom);
     let highestUnbalancedNodeSiblingTotalWeight = findBalancedChildTotalWeight(highestUnbalancedNode.parent);
