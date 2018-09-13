@@ -102,11 +102,11 @@ function makeTree(input){
 function getTargetWeightOfHighestUnbalancedNode(input){
     let tree = makeTree(input);
     let bottomName = findBottomName(tree);
-
+    let bottom = tree[bottomName];
     //This gets the total weight of the tree, which we don't need.
     //But it also sets a totalWeight for each node, which we want.
-    getTotalWeight(tree, tree[bottomName]);
-    let highestUnbalancedNode = findHighestUnbalancedNode(tree[bottomName]);
+    getTotalWeight(tree, bottom);
+    let highestUnbalancedNode = findHighestUnbalancedNode(bottom);
     let highestUnbalancedNodeSiblingTotalWeight = findBalancedChildTotalWeight(highestUnbalancedNode.parent);
     let difference = highestUnbalancedNode.totalWeight - highestUnbalancedNodeSiblingTotalWeight;
 
