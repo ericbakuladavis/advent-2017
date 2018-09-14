@@ -43,11 +43,12 @@ function followInstructionsAndTrackMaxValue(input){
             else
                 registers[registerName] -= amount;
 
+            // Check and set the maxValue
             if (registers[registerName] > maxValue)
                 maxValue = registers[registerName]; 
         }
     });
-    
+
     return maxValue;
 }
 
