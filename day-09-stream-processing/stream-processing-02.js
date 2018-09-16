@@ -1,6 +1,3 @@
-const fs = require('fs');
-const input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8');
-
 function countGarbage(input){
 
     let garbage = false;
@@ -32,4 +29,7 @@ function countGarbage(input){
     return count;
 }
 
-console.log(countGarbage(input));
+const fs = require('fs');
+const input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8');
+
+console.log(countGarbage(input)); // 6425
