@@ -7,14 +7,12 @@ function getMax(config){
             maxIndex = index;
         }
     });
-    return {'num': maxNum, 'index': maxIndex};
+    return {maxNum, maxIndex};
 }
 
 function redistributeBlocks(config){
     let configLength = config.length;
-    let max = getMax(config);
-    let maxNum = max.num;
-    let maxIndex = max.index;
+    let {maxNum, maxIndex} = getMax(config);
 
     let banksThatGetExtra = maxNum % configLength;
     const blocksForAllBanks = Math.floor(maxNum / configLength);
@@ -51,4 +49,4 @@ function countCyclesUntilDuplicateConfig(input){
 const fs = require('fs');
 const input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8').split('\t').map((str) => parseInt(str));
 
-console.log(countCyclesUntilDuplicateConfig(input));
+console.log(countCyclesUntilDuplicateConfig(input)); // 5042
