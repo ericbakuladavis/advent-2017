@@ -1,6 +1,3 @@
-const fs = require('fs');
-let input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8').split('\n').map((str) => parseInt(str));
-
 function countStepsUntilExit(input){
   let index = 0;
   let count = 0;
@@ -16,4 +13,7 @@ function countStepsUntilExit(input){
   return count;
 }
 
-console.log(countStepsUntilExit(input));
+const fs = require('fs');
+let input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8').split('\n').map((str) => parseInt(str));
+
+console.log(countStepsUntilExit(input)); // 28675390
