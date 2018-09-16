@@ -58,4 +58,4 @@ function getSteps (targetNum){
   }
 }
 
-console.log(getSteps(325489));
+console.log(getSteps(325489)); // 325489 => 552
