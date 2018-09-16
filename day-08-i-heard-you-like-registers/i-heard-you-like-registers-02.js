@@ -55,4 +55,4 @@ function followInstructionsAndTrackMaxValue(input){
 const fs = require('fs');
 const input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8').split('\n');
 
-console.log(followInstructionsAndTrackMaxValue(input));
+console.log(followInstructionsAndTrackMaxValue(input)); // 8186
