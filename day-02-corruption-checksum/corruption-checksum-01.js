@@ -1,7 +1,3 @@
-const fs = require('fs');
-const input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8').split('\n').map((line) => line.split('\t').map((num) => parseInt(num)));
-//input = [[5,1,9,5],[7,5,3],[2,4,6,8]];
-
 // // easy answer
 // function getCheckSum(input){
 //     return input.reduce((sum, line) => sum + Math.max(...line) - Math.min(...line),0);
@@ -25,4 +21,8 @@ function getCheckSum(input){
     }
     return sum;
 }
-console.log(getCheckSum(input));
+
+const fs = require('fs');
+const input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8').split('\n').map((line) => line.split('\t').map((num) => parseInt(num)));
+
+console.log(getCheckSum(input)); // 44670
