@@ -53,4 +53,4 @@ function countCyclesUntilDuplicateConfig(input){
 const fs = require('fs');
 const input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8').split('\t').map((str) => parseInt(str));
 
-console.log(countCyclesUntilDuplicateConfig(input));
+console.log(countCyclesUntilDuplicateConfig(input)); // 1086
