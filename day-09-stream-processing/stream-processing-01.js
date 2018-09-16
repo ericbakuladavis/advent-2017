@@ -1,9 +1,6 @@
-const fs = require('fs');
-const input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8');
-
 function getTotalScore(input){
 
-    let stack = [];
+    let openBraces = 0;
     let garbage = false;
     let score = 0;
 
@@ -23,10 +20,10 @@ function getTotalScore(input){
         if (garbage === false){
 
             switch (character){
-                case '{': stack.push('{');
+                case '{': openBraces++;
                           continue;
-                case '}': score += stack.length;
-                          stack.pop();
+                case '}': score += openBraces;
+                          openBraces--;
                           continue;
             }
         }
@@ -34,4 +31,7 @@ function getTotalScore(input){
     return score;
 }
 
-console.log(getTotalScore(input));
+const fs = require('fs');
+const input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8');
+
+console.log(getTotalScore(input)); // 12803
