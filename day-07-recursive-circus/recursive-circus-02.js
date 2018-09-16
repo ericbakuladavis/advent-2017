@@ -116,4 +116,4 @@ function getTargetWeightOfHighestUnbalancedNode(input){
 const fs = require('fs');
 const input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8').split('\n');
 
-console.log(getTargetWeightOfHighestUnbalancedNode(input));
+console.log(getTargetWeightOfHighestUnbalancedNode(input)); // 1152
