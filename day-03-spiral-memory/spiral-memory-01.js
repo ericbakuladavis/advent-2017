@@ -13,12 +13,12 @@
 // 3   2   1   2   3 
 // 4   3   2---> ...
 
-// if we un-coil that, it looks like this:
+// if we un-coil and extend that, it looks like this:
 
 // 0, 1, 2, 1, 2, 1, 2, 1, 2, 3, 2, 3, 4, 3, 2, 3, 4, 3, 2, 3, 4, 3, 2, 3, 4, 5, 4, 3, 4, 5, 6..
 
 // that series follows a pattern.
-// here's a visual/auditory representation of the pattern: https://goo.gl/isxjFZ
+// here's a visual/auditory representation of the pattern (extended further still): https://goo.gl/isxjFZ
 
 // the series oscilates between a ceiling and a floor.
 // both the ceiling and the floor grow, but the ceiling grows faster.
