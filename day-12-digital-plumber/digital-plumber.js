@@ -41,5 +41,5 @@ function getProgramsInGroup(input, program){
 const fs = require('fs');
 const input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8').split('\n');
 
-console.log(`There are ${getProgramsInGroup(input, "0")} programs in the group`);
-console.log(`There are ${getGroupsInVillage(input)} groups in the village`);
+console.log(`There are ${getProgramsInGroup(input, "0")} programs in the group`); // 283
+console.log(`There are ${getGroupsInVillage(input)} groups in the village`); // 195
