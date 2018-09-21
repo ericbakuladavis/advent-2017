@@ -31,7 +31,7 @@ function findHighestUnbalancedNode(node){
 }
 
 function getTotalWeight(node){
-    if (!node.children){
+    if (!node.hasOwnProperty('children')){
         node.totalWeight = node.weight;
         return node.totalWeight;
     }
@@ -45,7 +45,7 @@ function getTotalWeight(node){
 
 function findBottomName(tree){
     for (nodeName in tree){
-        if (!tree[nodeName].parent)
+        if (!tree[nodeName].hasOwnProperty('parent'))
             return nodeName;
     }
 }
@@ -54,7 +54,7 @@ function addChildrenToTree(tree, node, indices, line){
     node.children = {};
     let childrenNames = line.slice(indices.dash).split(', ');
     childrenNames.forEach((childName) => {
-        if (!tree[childName])
+        if (!tree.hasOwnProperty(childName))
             tree[childName] = {};
         node.children[childName] = tree[childName];
         tree[childName].parent = node;
@@ -80,11 +80,11 @@ function getCharacterIndices(line){
 function addNodeAndChildrenToTree(tree, line){
     let indices = getCharacterIndices(line);
     let nodeName = line.slice(0, indices.openParenthesis - 1);
-    if (!tree[nodeName])
+    if (!tree.hasOwnProperty(nodeName))
         tree[nodeName] = {};
     let node = tree[nodeName];
     node.weight = parseInt(line.slice(indices.openParenthesis + 1, indices.closedParenthesis));
-    if (indices.dash){
+    if (indices.hasOwnProperty('dash')){
         addChildrenToTree(tree, node, indices, line); 
     }
 }
