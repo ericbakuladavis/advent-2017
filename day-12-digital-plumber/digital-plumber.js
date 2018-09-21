@@ -24,7 +24,7 @@ function getGroupsInVillage(input){
     let village = populateVillage(input);
     let groupsInVillage = 0;
     for (program in village){
-        if (!village[program].groupID){
+        if (!village[program].hasOwnProperty('groupID')){
             getGroupList(village, program, program);
             groupsInVillage++;
         }
