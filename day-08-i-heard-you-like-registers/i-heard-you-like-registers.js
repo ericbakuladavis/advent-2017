@@ -28,9 +28,9 @@ function followInstructions(input){
         let {registerName, operation, amount, expression, expressionRegisterName} = instructions;
 
         // Initialize registers if they don't already exist
-        if (!registers[registerName])
+        if (!registers.hasOwnProperty(registerName))
             registers[registerName] = 0;
-        if (!registers[expressionRegisterName])
+        if (!registers.hasOwnProperty(expressionRegisterName))
             registers[expressionRegisterName] = 0;
         
         // Evaluate the expression
