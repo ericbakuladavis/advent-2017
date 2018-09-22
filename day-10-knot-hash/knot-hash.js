@@ -1,18 +1,12 @@
 function convertToHexadecimal(list){
-    list = list.map((num) => {
-        hexNum = num.toString(16);
-        if (hexNum.length === 1)
-            hexNum = '0' + hexNum;
-        return hexNum
-    });
-    return list;
+    return list.map((num) => num.toString(16).padStart(2, "0"));
 }
 
 function condenseHash(list, blockSize){
-    let condensedHash = [];
+    const condensedHash = [];
     for (let i = 0; i < list.length; i += blockSize){
-        let block = list.slice(i, i + blockSize);
-        let blockString = block.join(' ^ ');
+        const block = list.slice(i, i + blockSize);
+        const blockString = block.join(' ^ ');
         condensedHash.push(eval(blockString));
     }
     return condensedHash;
@@ -21,10 +15,10 @@ function condenseHash(list, blockSize){
 function applyTwists(list, input, rounds){
 
     list = list.slice();
-    let currentPosition = 0;
-    let skipSize = 0;
-    let leftIndex;
-    let rightIndex;
+    let currentPosition = 0,
+        skipSize = 0,
+        leftIndex,
+        rightIndex;
 
     // For as many rounds as specified...
     for (let i = 0; i < rounds; i++){
@@ -33,7 +27,7 @@ function applyTwists(list, input, rounds){
             // Define how many swap operations are needed. Establish left and right idicies (account for wrapping).
             // Note: If length is 1 or 0, no swap operations will be performed.
             // "left" and "right" are used loosely because the left index can be greater than the right index due to wrapping.
-            let swapOpperations = Math.floor(length / 2);
+            const swapOpperations = Math.floor(length / 2);
             leftIndex = currentPosition;
             rightIndex = (leftIndex + length - 1 + list.length) % list.length;
             // For as many swap operations as we need...
@@ -56,7 +50,7 @@ function applyTwists(list, input, rounds){
 }
 
 function generateList(listLength){
-    let list = [];
+    const list = [];
     for (let i = 0; i < listLength; i++){
         list.push(i);
     }
