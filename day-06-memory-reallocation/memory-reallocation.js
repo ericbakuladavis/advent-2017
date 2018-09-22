@@ -11,10 +11,10 @@ function getMax(config){
 }
 
 function redistributeBlocks(config){
-    let configLength = config.length;
-    let max = getMax(config);
-    let maxNum = max.num;
-    let maxIndex = max.index;
+    const configLength = config.length;
+    const max = getMax(config);
+    const maxNum = max.num;
+    const maxIndex = max.index;
 
     let banksThatGetExtra = maxNum % configLength;
     const blocksForAllBanks = Math.floor(maxNum / configLength);
@@ -25,7 +25,7 @@ function redistributeBlocks(config){
         totalSteps = banksThatGetExtra;
 
     for (let i = 0; i < totalSteps; i++){
-        let index = (maxIndex + i + 1) % configLength;
+        const index = (maxIndex + i + 1) % configLength;
         config[index] += blocksForAllBanks;
         if (banksThatGetExtra){
             config[index]++;
@@ -36,7 +36,7 @@ function redistributeBlocks(config){
 }
 
 function countCyclesUntilDuplicateConfig(input){
-    let seen = {};
+    const seen = {};
     let config = input.slice();
     let configString = JSON.stringify(config); 
     let position = 0;
