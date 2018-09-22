@@ -1,7 +1,7 @@
 function inverseCaptcha(input){
     let sum = 0;
     for (let i = 0; i < input.length; i++){
-        let curNum = input[i];
+        const curNum = input[i];
         let nextNum = input[i + 1];
     
         if (i === input.length - 1)
@@ -14,6 +14,6 @@ function inverseCaptcha(input){
 }
 
 const fs = require('fs');
-let input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8').split('').map((str) => parseInt(str));
+const input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8').split('').map((str) => parseInt(str));
 
 console.log(inverseCaptcha(input)); // 1223

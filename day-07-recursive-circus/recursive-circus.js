@@ -1,8 +1,8 @@
 function findBalancedChildTotalWeight(node){
-    let seen = new Set();
+    const seen = new Set();
     let balancedChildTotalWeight;
     for (childName in node.children){
-        let childTotalWeight = node.children[childName].totalWeight;
+        const childTotalWeight = node.children[childName].totalWeight;
         if (seen.has(childTotalWeight)){
             balancedChildTotalWeight = childTotalWeight;
             break;
@@ -14,9 +14,9 @@ function findBalancedChildTotalWeight(node){
 }
 
 function findUnbalancedChild(node){
-    let balancedChildTotalWeight = findBalancedChildTotalWeight(node);
+    const balancedChildTotalWeight = findBalancedChildTotalWeight(node);
     for (childName in node.children){
-        let childTotalWeight = node.children[childName].totalWeight;
+        const childTotalWeight = node.children[childName].totalWeight;
         if (childTotalWeight !== balancedChildTotalWeight)
             return node.children[childName];
     }
@@ -24,7 +24,7 @@ function findUnbalancedChild(node){
 }
 
 function findHighestUnbalancedNode(node){
-    let unbalancedChild = findUnbalancedChild(node);
+    const unbalancedChild = findUnbalancedChild(node);
     if (unbalancedChild === undefined)
         return node;
     return findHighestUnbalancedNode(unbalancedChild);
@@ -52,7 +52,7 @@ function findBottomName(tree){
 
 function addChildrenToTree(tree, node, indices, line){
     node.children = {};
-    let childrenNames = line.slice(indices.dash).split(', ');
+    const childrenNames = line.slice(indices.dash).split(', ');
     childrenNames.forEach((childName) => {
         if (!tree.hasOwnProperty(childName))
             tree[childName] = {};
@@ -62,9 +62,9 @@ function addChildrenToTree(tree, node, indices, line){
 }
 
 function getCharacterIndices(line){
-    let indices = {};
+    const indices = {};
     for (let i = 0; !indices.dash && i < line.length ; i++){
-        let character = line[i];
+        const character = line[i];
         switch (character) {
             case '(':   indices.openParenthesis = i;
                         break;
@@ -78,11 +78,11 @@ function getCharacterIndices(line){
 }
 
 function addNodeAndChildrenToTree(tree, line){
-    let indices = getCharacterIndices(line);
-    let nodeName = line.slice(0, indices.openParenthesis - 1);
+    const indices = getCharacterIndices(line);
+    const nodeName = line.slice(0, indices.openParenthesis - 1);
     if (!tree.hasOwnProperty(nodeName))
         tree[nodeName] = {};
-    let node = tree[nodeName];
+    const node = tree[nodeName];
     node.weight = parseInt(line.slice(indices.openParenthesis + 1, indices.closedParenthesis));
     if (indices.hasOwnProperty('dash')){
         addChildrenToTree(tree, node, indices, line); 
@@ -90,7 +90,7 @@ function addNodeAndChildrenToTree(tree, line){
 }
 
 function makeTree(input){
-    let tree = {};
+    const tree = {};
     input.forEach((line) => {
         addNodeAndChildrenToTree(tree, line);
     });
@@ -98,17 +98,17 @@ function makeTree(input){
 }
 
 function getBottomNodeAndTheMissingWeight(input){
-    let tree = makeTree(input);
-    let bottomName = findBottomName(tree);
-    let bottom = tree[bottomName];
+    const tree = makeTree(input);
+    const bottomName = findBottomName(tree);
+    const bottom = tree[bottomName];
 
     //This gets the total weight of the tree, which we don't need.
     //But it also sets a totalWeight for each node, which we want.
     getTotalWeight(bottom);
 
-    let highestUnbalancedNode = findHighestUnbalancedNode(bottom);
-    let highestUnbalancedNodeSiblingTotalWeight = findBalancedChildTotalWeight(highestUnbalancedNode.parent);
-    let difference = highestUnbalancedNode.totalWeight - highestUnbalancedNodeSiblingTotalWeight;
+    const highestUnbalancedNode = findHighestUnbalancedNode(bottom);
+    const highestUnbalancedNodeSiblingTotalWeight = findBalancedChildTotalWeight(highestUnbalancedNode.parent);
+    const difference = highestUnbalancedNode.totalWeight - highestUnbalancedNodeSiblingTotalWeight;
 
     console.log('Bottom node: ', bottomName); // svugo
     console.log('Highest unbalanced node should weigh: ', highestUnbalancedNode.weight - difference); // 1152

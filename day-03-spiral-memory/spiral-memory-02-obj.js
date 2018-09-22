@@ -1,4 +1,4 @@
-let spiral = {
+const spiral = {
 
     grid: [[1]],
     x : 0,
@@ -19,7 +19,7 @@ let spiral = {
     },
 
     sumOfNeighbors(direction){
-        let neighbors = this.getNeighbors(direction);
+        const neighbors = this.getNeighbors(direction);
         return neighbors.reduce((sum, neighbor) => neighbor ? sum + neighbor : sum);
     },
 

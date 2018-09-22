@@ -1,7 +1,7 @@
 function getSpaceIndices(line){
-    let spaceIndices = [];
+    const spaceIndices = [];
     for (let i = 0; spaceIndices.length < 5; i++){
-        let character = line[i];
+        const character = line[i];
         if (character === ' ')
             spaceIndices.push(i);
     }
@@ -9,23 +9,23 @@ function getSpaceIndices(line){
 }
 
 function parseLine(line){
-    let spaceIndices = getSpaceIndices(line);
-    let registerName = line.slice(0, spaceIndices[0]);
-    let operation = line.slice(spaceIndices[0] + 1, spaceIndices[1]);
-    let amount = parseInt(line.slice(spaceIndices[1] + 1, spaceIndices[2]));
-    let expression = line.slice(spaceIndices[3] + 1);
-    let expressionRegisterName = line.slice(spaceIndices[3] + 1, spaceIndices[4]);
+    const   spaceIndices = getSpaceIndices(line),
+            registerName = line.slice(0, spaceIndices[0]),
+            operation = line.slice(spaceIndices[0] + 1, spaceIndices[1]),
+            amount = parseInt(line.slice(spaceIndices[1] + 1, spaceIndices[2])),
+            expression = 'registers.' + line.slice(spaceIndices[3] + 1),
+            expressionRegisterName = line.slice(spaceIndices[3] + 1, spaceIndices[4]);
     return {registerName, operation, amount, expression, expressionRegisterName};
 }
 
 function followInstructions(input){
 
-    let registers = {};
+    const registers = {};
     let maxValue = 0;
 
     input.forEach((line) => {        
-        let instructions = parseLine(line);
-        let {registerName, operation, amount, expression, expressionRegisterName} = instructions;
+        const instructions = parseLine(line);
+        const {registerName, operation, amount, expression, expressionRegisterName} = instructions;
 
         // Initialize registers if they don't already exist
         if (!registers.hasOwnProperty(registerName))
@@ -33,8 +33,7 @@ function followInstructions(input){
         if (!registers.hasOwnProperty(expressionRegisterName))
             registers[expressionRegisterName] = 0;
         
-        // Evaluate the expression
-        expression = 'registers.' + expression; 
+        // Evaluate the expression 
         if (eval(expression)){
 
             // Modify the register
@@ -49,7 +48,7 @@ function followInstructions(input){
         }
     });
     
-    let values = Object.values(registers);
+    const values = Object.values(registers);
     console.log('Max value at end of process: ', Math.max(...values)); // 7296
     console.log('Max value during process: ', maxValue); // 8186
 }

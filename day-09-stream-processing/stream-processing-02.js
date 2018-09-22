@@ -4,7 +4,7 @@ function countGarbage(input){
     let count = 0;
 
     for (let i = 0; i < input.length; i++){
-        let character = input[i];
+        const character = input[i];
         
         if (character === '!'){
             i++;

@@ -10,7 +10,7 @@ function reachTarget(target){
     }
 
     function sumOfNeighbors(direction){
-        let neighbors = getNeighbors(direction);
+        const neighbors = getNeighbors(direction);
         return neighbors.reduce((sum, neighbor) => neighbor ? sum + neighbor : sum);
     }
 
@@ -49,14 +49,14 @@ function reachTarget(target){
         }
     }
 
-    let grid = [[1]];
-    let x = 0;
-    let y = 0;
-    let bottomRow = 0;
-    let topRow = 0;
-    let n = 1;
-    let stepsToTake = 0
-    let targetFound = false;
+    const grid = [[1]];
+    let x = 0,
+        y = 0,
+        bottomRow = 0,
+        topRow = 0,
+        n = 1,
+        stepsToTake = 0,
+        targetFound = false;
 
     // make the spiral in the grid
     while (n < target){

@@ -6,7 +6,7 @@ function getTotalScore(input){
 
     for (let i = 0; i < input.length; i++){
 
-        let character = input[i];
+        const character = input[i];
         
         switch (character){
             case '!': i++;

@@ -1,10 +1,10 @@
 function getTripSeverity(delay){
     let tripSeverity = 0;
     for (layer in firewall){
-        let depth = parseInt(layer);
-        let scannerPositionWhenPacketArrives = getScannerPosition(layer, delay + depth);
+        const depth = parseInt(layer);
+        const scannerPositionWhenPacketArrives = getScannerPosition(layer, delay + depth);
         if (scannerPositionWhenPacketArrives === 0){
-            let range = firewall[layer];
+            const range = firewall[layer];
             tripSeverity += depth * range;
         }
     }
@@ -13,10 +13,10 @@ function getTripSeverity(delay){
 
 function getScannerPosition(layer, time){
     if (firewall.hasOwnProperty(layer)){
-        let layerRange = firewall[layer];
-        let maxScannerPosition = layerRange - 1;
-        let cycleDuration = maxScannerPosition * 2;
-        let effectiveTime = time % cycleDuration;
+        const layerRange = firewall[layer];
+        const maxScannerPosition = layerRange - 1;
+        const cycleDuration = maxScannerPosition * 2;
+        const effectiveTime = time % cycleDuration;
         if (effectiveTime <= maxScannerPosition)
             return effectiveTime;
         return (maxScannerPosition * 2) - effectiveTime;
@@ -26,8 +26,8 @@ function getScannerPosition(layer, time){
 
 function packetIsSafe(delay){
     for (layer in firewall){
-        let depth = parseInt(layer);
-        let scannerPositionWhenPacketArrives = getScannerPosition(layer, delay + depth);
+        const depth = parseInt(layer);
+        const scannerPositionWhenPacketArrives = getScannerPosition(layer, delay + depth);
         if (scannerPositionWhenPacketArrives === 0)
             return false;
         
@@ -45,14 +45,14 @@ function findSafeDelay(maxDelay){
 const fs = require('fs');
 const input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8').split('\n');
 
-let firewall = {
+const firewall = {
 
     deepestLayer: 0,
 
     populate(input){
         input.forEach((line) => {
-            let layer = parseInt(line.match(/^\d+/)[0]);
-            let range = parseInt(line.match(/\d+$/)[0]);
+            const layer = parseInt(line.match(/^\d+/)[0]);
+            const range = parseInt(line.match(/\d+$/)[0]);
             this[layer] = range;
             if (layer > this.deepestLayer)
                 this.deepestLayer = layer;

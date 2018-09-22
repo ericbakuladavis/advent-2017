@@ -20,11 +20,11 @@ function getDirectionHome(x, y){
 function calculateStepsToHome(x,y){
     let stepsToHomeTaken = 0;
     while (x !== 0 || y !== 0){
-        let directionHome = getDirectionHome(x,y);
+        const directionHome = getDirectionHome(x,y);
         if (directionHome === null){
             return stepsToHomeTaken;
         }
-        let newCoordinate = takeStep(x, y, directionHome)
+        const newCoordinate = takeStep(x, y, directionHome)
         x = newCoordinate.x;
         y = newCoordinate.y;
         stepsToHomeTaken++;
@@ -60,7 +60,7 @@ function retraceSteps(input){
     let stepsFromHome = 0
     let maxStepsFromHome = 0;
     input.forEach((direction) => {
-        let newCoordinate = takeStep(x, y, direction);
+        const newCoordinate = takeStep(x, y, direction);
         x = newCoordinate.x;
         y = newCoordinate.y;
         stepsFromHome = calculateStepsToHome(x,y);

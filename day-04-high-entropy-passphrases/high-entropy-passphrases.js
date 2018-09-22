@@ -1,8 +1,8 @@
 function containsNoAnagrams(phrase){
-    let seen = new Set();
+    const seen = new Set();
     for (let i = 0; i < phrase.length; i++){
-        let word = phrase[i];
-        let sortedWord = word.split('').sort().toString();
+        const word = phrase[i];
+        const sortedWord = word.split('').sort().toString();
         if (seen.has(sortedWord))
             return false;
         else
@@ -12,9 +12,9 @@ function containsNoAnagrams(phrase){
 }
 
 function containsNoDuplicates(phrase){
-    let seen = new Set();
+    const seen = new Set();
     for (let i = 0; i < phrase.length; i++){
-        let word = phrase[i];
+        const word = phrase[i];
         if (seen.has(word))
             return false;
         else
