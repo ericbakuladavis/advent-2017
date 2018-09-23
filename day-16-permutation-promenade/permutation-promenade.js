@@ -1,5 +1,5 @@
-function spin(programs, rotations){
-    rotations = parseInt(rotations);
+function spin(programs, instructions){
+    rotations = parseInt(instructions);
     const end = programs.splice(programs.length - rotations, rotations);
     programs.unshift(...end);
 }
