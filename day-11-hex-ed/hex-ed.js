@@ -34,21 +34,21 @@ function calculateStepsToHome(x,y){
 
 function takeStep(x, y, direction){
     switch(direction){
-        case 'n':   y += 1;
+        case 'n':   y += 2;
                     break;
-        case 'ne':  x += 1;
-                    y += 0.5;
+        case 'ne':  x += 2;
+                    y += 1;
                     break;
-        case 'se':  x += 1;
-                    y += -0.5;
+        case 'se':  x += 2;
+                    y += -1;
                     break;
-        case 's':   y += -1;
+        case 's':   y += -2;
                     break;
-        case 'sw':  x += -1;
-                    y += -0.5;
+        case 'sw':  x += -2;
+                    y += -1;
                     break;
-        case 'nw':  x += -1;
-                    y += 0.5;
+        case 'nw':  x += -2;
+                    y += 1;
                     break;        
     }
     return {x, y};
