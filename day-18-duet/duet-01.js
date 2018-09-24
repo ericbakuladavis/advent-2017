@@ -75,9 +75,9 @@ function getFirstRecoveredValue(input){
 }
 
 const fs = require('fs');
-const input = 
-fs.readFileSync(`${__dirname}/input.txt`, 'utf8')
-.split('\n')
-.map((instruction) => instruction.split(' '));
+const input =   fs
+                .readFileSync(`${__dirname}/input.txt`, 'utf8')
+                .split('\n')
+                .map((instruction) => instruction.split(' '));
 
 console.log ( 'The first recovered frequency was', getFirstRecoveredValue(input) ); // 8600
