@@ -94,7 +94,7 @@ class Program {
     }
 }
 
-function getSendCountOfProgram(input, programNumber){
+function getSendCountOfProgram1(input){
     const program0 = new Program(0);
     const program1 = new Program(1);
     program0.partner = program1;
@@ -110,13 +110,13 @@ function getSendCountOfProgram(input, programNumber){
             program1.followInstructions(input);
         }
     }
-    return eval('program' + programNumber + '.sendCount');
+    return program1.sendCount;
 }
 
 const fs = require('fs');
-const input = 
-fs.readFileSync(`${__dirname}/input.txt`, 'utf8')
-.split('\n')
-.map((instruction) => instruction.split(' '));
+const input =   fs
+                .readFileSync(`${__dirname}/input.txt`, 'utf8')
+                .split('\n')
+                .map((instruction) => instruction.split(' '));
 
-console.log( 'The program sent ' + getSendCountOfProgram(input, 1) + ' values' ); // 7239
+console.log( 'The program sent ' + getSendCountOfProgram1(input) + ' values' ); // 7239
