@@ -25,8 +25,3 @@ function inverseCaptcha2(input){
     }
     return sum;
 }
-
-module.exports = {
-    inverseCaptcha1,
-    inverseCaptcha2
-}
