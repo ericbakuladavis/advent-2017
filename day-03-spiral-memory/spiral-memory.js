@@ -23,7 +23,7 @@
 // the series oscilates between a ceiling and a floor.
 // both the ceiling and the floor grow, but the ceiling grows faster.
 
-// this function produces that pattern and returns stepsToReachCenter as soon as curNum equals targetNum.
+// this getSteps produces that pattern and returns stepsToReachCenter as soon as curNum equals targetNum.
 // curNum represents a number from the spiral in the prompt.
 // stepsToReachCenter represents how many steps it takes to reach the center, starting at curNum.
 
