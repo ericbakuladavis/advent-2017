@@ -42,13 +42,8 @@ function findSafeDelay(maxDelay){
     }
 }
 
-const fs = require('fs');
-const input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8').split('\n');
-
 const firewall = {
-
     deepestLayer: 0,
-
     populate(input){
         input.forEach((line) => {
             const layer = parseInt(line.match(/^\d+/)[0]);
@@ -59,6 +54,11 @@ const firewall = {
         });
     }
 }
+
+const fs = require('fs');
+const input =   fs
+                .readFileSync(`${__dirname}/input.txt`, 'utf8')
+                .split('\n');
 
 firewall.populate(input);
 console.log(`The trip severity with no delay is ${getTripSeverity(0)}`); // 1640
