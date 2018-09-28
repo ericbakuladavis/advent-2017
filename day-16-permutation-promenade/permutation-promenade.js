@@ -48,5 +48,8 @@ function getFinalOrder(programs, input, cycles){
 }
 
 const fs = require('fs');
-const input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8').split(',');
+const input =   fs
+                .readFileSync(`${__dirname}/input.txt`, 'utf8')
+                .split(',');
+                
 console.log('The final order is: ', getFinalOrder('abcdefghijklmnop', input, 1000000000));
