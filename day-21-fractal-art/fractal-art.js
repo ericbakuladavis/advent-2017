@@ -119,12 +119,8 @@ function enhancePattern(pattern, input){
 }
 
 function countOnPixels(pattern, input, iterations){
-    let patterns = [];
-    patterns.push(pattern.split('/'));
-    for (let i = 0; i < iterations; i++){
+    for (let i = 0; i < iterations; i++)
         pattern = enhancePattern(pattern, input);
-        patterns.push(pattern.split('/'));
-    }
     let onPixels = 0;
     for (let i = 0; i < pattern.length; i++){
         let pixel = pattern[i];
@@ -141,7 +137,9 @@ const input =   fs
 
 let startPattern ='.#./..#/###';
 
-console.log ( countOnPixels(startPattern, input, 5) ); // 158
+console.log ( 'On pixels after iterations:', countOnPixels(startPattern, input, 5) ); // 158
+console.log('working...')
+console.log ( 'On pixels after iterations:', countOnPixels(startPattern, input, 18) ); // 2301762
 
 module.exports = {
     flipHorizontally,

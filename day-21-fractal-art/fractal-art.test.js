@@ -1,7 +1,5 @@
 const m = require('./fractal-art')
 
-//console.log(m);
-
 describe('fractal art', () => {
     test('horizontal flip', () => {
         expect(m.flipHorizontally('../#.')).toEqual('../.#');
