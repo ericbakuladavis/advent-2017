@@ -24,5 +24,6 @@ function getValueAfterFinalInsertion(input, cycles){
 }
 
 const input = 303;
+
 console.log( 'The value to the right of the final insertion is:', getValueAfterFinalInsertion(input, 2017) );
 console.log( 'The value to the right of the index is:', getValueAfterIndex(input, 50000000, 0) );
