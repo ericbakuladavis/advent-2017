@@ -33,7 +33,10 @@ function countValidPhrases(input, phraseIsValid){
 }
 
 const fs = require('fs');
-const input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8').split('\n').map((phrase) => phrase.split(' '));
+const input =   fs
+                .readFileSync(`${__dirname}/input.txt`, 'utf8')
+                .split('\n')
+                .map((phrase) => phrase.split(' '));
 
 console.log('phrases without duplicates: ', countValidPhrases(input, containsNoDuplicates)); // 386
 console.log('phrases without anagrams: ', countValidPhrases(input, containsNoAnagrams)); // 208

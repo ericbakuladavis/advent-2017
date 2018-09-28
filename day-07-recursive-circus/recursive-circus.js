@@ -115,6 +115,8 @@ function getBottomNodeAndTheMissingWeight(input){
 }
 
 const fs = require('fs');
-const input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8').split('\n');
+const input =   fs
+                .readFileSync(`${__dirname}/input.txt`, 'utf8')
+                .split('\n');
 
 getBottomNodeAndTheMissingWeight(input); 

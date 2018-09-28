@@ -37,6 +37,9 @@ function getChecksum2(input) {
 }
 
 const fs = require('fs');
-const input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8').split('\n').map((line) => line.split('\t').map((num) => parseInt(num)));
+const input =   fs
+                .readFileSync(`${__dirname}/input.txt`, 'utf8')
+                .split('\n').map((line) => line.split('\t')
+                .map((num) => parseInt(num)));
 console.log(getCheckSum1(input)); // 44670
 console.log(getChecksum2(input)); // 285

@@ -28,7 +28,10 @@ function countStepsUntilExit2(input){
 }
 
 const fs = require('fs');
-const input = fs.readFileSync(`${__dirname}/input.txt`, 'utf8').split('\n').map((str) => parseInt(str));
+const input =   fs
+                .readFileSync(`${__dirname}/input.txt`, 'utf8')
+                .split('\n')
+                .map((str) => parseInt(str));
 
 console.log(countStepsUntilExit1(input)); // 396086
 console.log(countStepsUntilExit2(input)); // 28675390
