@@ -63,7 +63,7 @@ function countUsedSquares(input){
     return countOnes(binaryHashes);
 }
 
-const input = 'jzgqcdpd'
+const input = 'jzgqcdpd';
 const knotHash = require('../functions/knot-hash');
 
 console.log('Used squares on the disk:', countUsedSquares(input));
