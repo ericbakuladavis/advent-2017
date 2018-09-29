@@ -37,7 +37,6 @@ const cluster = {
             case '.':   // turn left
                         this.directionIndex = (this.directionIndex + 3) % 4;
                         break;
-            default: throw 'invalid currentNode';
         }
     },
 
@@ -48,7 +47,6 @@ const cluster = {
                         break;
             case '#':   this.currentNode = '.';
                         break;
-            default: throw 'currentNode is invalid';
         }
     },
 
