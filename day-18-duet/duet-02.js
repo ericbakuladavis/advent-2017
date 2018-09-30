@@ -11,6 +11,7 @@ class Program {
         this.sendCount = 0;
         this.status = 'active';
         this.terminate = false;
+        this.jumped = false;
     }
 
     followInstructions(input){
@@ -39,7 +40,10 @@ class Program {
                 this.status = 'finished';
                 this.sendQueue = [];
             }
-            this.instructionIndex++;
+            if (!this.jumped)
+                this.instructionIndex++;
+            else
+                this.jumped = false;
         }
     }
 
@@ -85,8 +89,10 @@ class Program {
     jump(x, y){
         const valueOfX = this.getValue(x);
         const valueOfY = this.getValue(y);
-        if (valueOfX > 0)
-            this.instructionIndex += (valueOfY - 1);
+        if (valueOfX > 0){
+            this.instructionIndex += valueOfY;
+            this.jumped = true;
+        }
     }
 
     getValue(string){

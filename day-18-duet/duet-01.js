@@ -37,7 +37,7 @@ function jump(registers, x, y){
     const valueOfX = getValue(registers, x);
     const valueOfY = getValue(registers, y);
     if (valueOfX > 0)
-        return valueOfY - 1;   
+        return valueOfY;   
 }
 
 function parseInstruction(instruction){
@@ -49,7 +49,8 @@ function parseInstruction(instruction){
 
 function getFirstRecoveredValue(input){
     registers = {};
-    for (let i = 0; i < input.length && i >= 0; i++){
+    let i = 0; 
+    while (i < input.length && i >= 0){
         const {operationNickname, x, y} = parseInstruction(input[i]);
         switch(operationNickname){
             case 'snd': sound(registers, x);
@@ -67,10 +68,13 @@ function getFirstRecoveredValue(input){
                             return recoverResult; 
                         break;
             case 'jgz': const jumpResult = jump(registers, x, y);
-                        if (jumpResult)
+                        if (jumpResult){
                             i += jumpResult;
+                            continue;
+                        }
                         break;
         }
+        i++;
     }
 }
 
