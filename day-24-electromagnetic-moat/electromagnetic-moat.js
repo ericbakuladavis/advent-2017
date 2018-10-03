@@ -7,13 +7,13 @@ const bridges = {
 
     build(input, bridge = [], num){
         for (let i = 0; i < input.length; i++){
-            let component = input[i];
+            const component = input[i];
             if (component.includes(num)){
                 if (component[0] !== num){
                     component.reverse()
                 }
-                let bridgeCopy = bridge.slice();
-                let inputCopy = input.slice();
+                const bridgeCopy = bridge.slice();
+                const inputCopy = input.slice();
                 bridgeCopy.push(component)
                 inputCopy.splice(i, 1);
                 numCopy = component[1];
