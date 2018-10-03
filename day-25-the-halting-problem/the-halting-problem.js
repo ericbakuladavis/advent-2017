@@ -51,7 +51,9 @@ const blueprints = {
     takeStep(){
         const currentState = this.states[this.currentStateName];
         const currentNumCopy = this.currentNum;
+        // overwrite the number
         this.currentNum = currentState[this.currentNum].write;
+        // move the cursor
         if (currentState[currentNumCopy].move === 'r'){
             if (this.tape[this.currentIndex + 1] === undefined){
                 this.tape[this.currentIndex + 1] = '0';
@@ -63,6 +65,7 @@ const blueprints = {
             }
             this.currentIndex--;
         }
+        // change the state
         this.currentStateName = currentState[currentNumCopy].continue;
     },
 
