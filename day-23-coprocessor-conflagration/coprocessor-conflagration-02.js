@@ -12,6 +12,8 @@ const program = {
 
     i: 0,
 
+    percentComplete: 0,
+
     run(input){
         while (this.i < input.length && this.i >= 0){
 
@@ -22,6 +24,14 @@ const program = {
                 let num = this.registers.b - this.registers.e
                 this.registers.e += num;
                 this.registers.g += num;            
+            }
+
+            if (this.i === 28){
+                let percentComplete = Math.floor((17000 + this.registers.g) / 170)
+                if (percentComplete > this.percentComplete){
+                    this.percentComplete = percentComplete
+                    console.log(`${percentComplete}% complete`);
+                }
             }
 
             const {operationNickname, x, y} = this.parseInstruction(input[this.i]);
@@ -82,5 +92,7 @@ const input =   fs
                 .split('\n')
                 .map((instruction) => instruction.split(' '));
 
+console.time('go');
 program.run(input);
+console.timeEnd('go');
 console.log(program.registers.h);
