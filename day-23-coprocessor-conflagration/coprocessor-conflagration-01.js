@@ -1,75 +1,75 @@
-function getValue(registers, string){
-    return !isNaN(string) ? parseInt(string) : registers[string];
-}
+const registers = {
+    a: 0,
+    b: 0,
+    c: 0,
+    d: 0,
+    e: 0,
+    f: 0,
+    g: 0,
+    h: 0,
+    mulCount: 0,
+    i: 0,
 
-function set(registers, register, y){
-    const valueOfY = getValue(registers, y);
-    registers[register] = valueOfY;
-}
-
-function subtract(registers, register, y){
-    const valueOfY = getValue(registers, y);
-    registers[register] -= valueOfY;
-}
-
-function multiply(registers, register, y){
-    const valueOfY = getValue(registers, y);
-    registers[register] *= valueOfY;
-}
-
-function jump(registers, x, y){
-    const valueOfX = getValue(registers, x);
-    const valueOfY = getValue(registers, y);
-    if (valueOfX !== 0)
-        return valueOfY;   
-}
-
-function parseInstruction(instruction){
-    const operationNickname = instruction[0];
-    const x = instruction[1];
-    const y = instruction[2];
-    return {operationNickname, x, y}
-}
-
-function countMulInvocations(input){
-    registers = {
-        a: 0,
-        b: 0,
-        c: 0,
-        d: 0,
-        e: 0,
-        f: 0,
-        g: 0,
-        h: 0
-    };
-    let mulCount = 0;
-    let i = 0; 
-    while (i < input.length && i >= 0){
-        const {operationNickname, x, y} = parseInstruction(input[i]);
-        switch(operationNickname){
-            case 'set': set(registers, x, y);
-                        break;
-            case 'sub': subtract(registers, x, y);
-                        break;
-            case 'mul': multiply(registers, x, y);
-                        mulCount++
-                        break;
-            case 'jnz': const jumpResult = jump(registers, x, y);
-                        if (jumpResult){
-                            i += jumpResult;
+    run(input){
+        while (this.i < input.length && this.i >= 0){
+            const {operationNickname, x, y} = this.parseInstruction(input[this.i]);
+            switch(operationNickname){
+                case 'set': this.set(x, y);
+                            break;
+                case 'sub': this.subtract(x, y);
+                            break;
+                case 'mul': this.multiply(x, y);
+                            this.mulCount++;
+                            break;
+                case 'jnz': this.jump(x, y);
                             continue;
-                        }
-                        break;
+            }
+            this.i++;
         }
-        i++;
-    }
-    return mulCount;
-}
+    },
 
+    parseInstruction(instruction){
+        const operationNickname = instruction[0];
+        const x = instruction[1];
+        const y = instruction[2];
+        return {operationNickname, x, y}
+    },
+
+    set(register, y){
+        const valueOfY = this.getValue(y);
+        this[register] = valueOfY;
+    },
+
+    subtract(register, y){
+        const valueOfY = this.getValue(y);
+        this[register] -= valueOfY;
+    },
+
+    multiply(register, y){
+        const valueOfY = this.getValue(y);
+        this[register] *= valueOfY;
+    },
+
+    jump(x, y){
+        const valueOfX = this.getValue(x);
+        const valueOfY = this.getValue(y);
+        if (valueOfX !== 0)
+            this.i += valueOfY;
+        else this.i ++;
+    },
+
+    getValue(string){
+        return !isNaN(string) ? parseInt(string) : this[string];
+    }
+
+};
+    
 const fs = require('fs');
 const input =   fs
                 .readFileSync(`${__dirname}/input.txt`, 'utf8')
                 .split('\n')
                 .map((instruction) => instruction.split(' '));
 
-console.log(`Multiply was invoked ${countMulInvocations(input)} times.` );
+registers.run(input);
+
+console.log(`Multiply was invoked ${registers.mulCount} times.` );
